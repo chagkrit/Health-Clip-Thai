@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "health-clip-thai",
+  "displayName": "Health Clip Thai",
+  "description": "Thai voiceover for health and medical explainer clips: generates natural spoken-Thai narration audio (WAV) with Google Gemini TTS through a free AI Studio API key, with female (Leda) and male (Puck) presets, a voice-audition mode, and a Thai script style guide that avoids AI-sounding delivery.",
+  "version": "1.0.0",
+  "author": {
+    "name": "chagkrit"
+  },
+  "homepage": "https://github.com/chagkrit/Health-Clip-Thai#readme",
+  "repository": "https://github.com/chagkrit/Health-Clip-Thai",
+  "license": "MIT",
+  "keywords": [
+    "thai",
+    "tts",
+    "text-to-speech",
+    "voiceover",
+    "gemini",
+    "health-communication",
+    "video"
+  ],
+  "skills": [
+    "./"
+  ]
+}
