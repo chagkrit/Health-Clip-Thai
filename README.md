@@ -1,16 +1,29 @@
 # Health Clip Thai
 
-Claude Code skill that creates **Thai voiceover audio for health and medical explainer clips** with Google Gemini TTS. It uses the free-tier model `gemini-3.8-flash-tts` through an AI Studio API key, so a Gemini subscription is not required.
+Claude Code skill for making **short Thai health and medical explainer clips** (120 s, 16:9, 2D cartoon) from topic to finished Thai voiceover. The voice step uses free-tier Google Gemini TTS (`gemini-3.8-flash-tts`) through an AI Studio API key, so a Gemini subscription is not required.
 
-เสียงพากย์ไทยสำหรับคลิปสุขภาพ สร้างจากบทภาษาไทย ได้ไฟล์ WAV (24 kHz mono) พร้อมตัดต่อ
+ชุดทำคลิปสุขภาพภาษาไทยตั้งแต่เลือกหัวข้อ หาหลักฐาน เขียนบท ทำ prompt ภาพการ์ตูน ซับไตเติล จนถึงไฟล์เสียงพากย์ไทย
 
-## Features
+## Workflow
 
-- Female (`Leda`) and male (`Puck`) narration presets: `--voice female` / `--voice male`, or any other Gemini voice by name
+| Step | What it does | Pauses for you |
+|---|---|---|
+| 1 | Propose 10 health topics that suit 2D cartoon storytelling | pick one |
+| 2 | Find 3–5 real studies (PubMed / Semantic Scholar), table with PMID, DOI, limits | confirm evidence |
+| 3 | Write the 120 s spoken-Thai script with citations and a medical disclaimer | |
+| 4 | Convert to ~8 s scene prompts for AI video generators (original characters, no text in frame) | |
+| 5 | TTS-ready script and `.srt` subtitles | |
+| 6 | Record Thai voiceover WAV with Gemini TTS | |
+
+You can enter at any step, for example paste a finished script and ask only for the audio. The full prompts and strict evidence rules are in `references/workflow-prompts.md`.
+
+## Voice features
+
+- Female (`Leda`) and male (`Puck`) presets: `--voice female` / `--voice male`, or any other Gemini voice by name
 - `--audition` renders one sentence in several voices so you can choose by ear
 - Splits a script into scenes (one paragraph = one scene), retries on rate limits, skips scenes already rendered, and joins them into `voiceover.wav`
 - Prepares the script for speech: removes citation numbers like `[1]`, converts `[หยุดสั้น]` / `[หยุดยาว]` to pause tags, and warns about digits, Latin letters and stiff written-Thai phrases that make narration sound like AI
-- `references/thai-narration-style.md`: how to write spoken Thai, read numbers and terms, and handle health-specific wording
+- `references/thai-narration-style.md`: how to write spoken Thai, read numbers and terms, and health-specific wording
 
 ## Install
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "health-clip-thai",
-  "description": "Claude Code marketplace for Health Clip Thai: Thai voiceover for health explainer clips using free Gemini TTS.",
+  "description": "Claude Code marketplace for Health Clip Thai: Thai health explainer clip workflow with free Gemini TTS voiceover.",
   "owner": {
     "name": "chagkrit",
     "url": "https://github.com/chagkrit"
@@ -11,18 +11,22 @@
       "name": "health-clip-thai",
       "displayName": "Health Clip Thai",
       "source": "./",
-      "description": "Thai voiceover for health and medical explainer clips: natural spoken-Thai narration audio with Google Gemini TTS (free AI Studio tier), female/male voice presets, voice audition, and a Thai script style guide.",
-      "version": "1.0.0",
+      "description": "Make short Thai health and medical explainer clips end to end: topic ideas, real PubMed evidence, cited spoken-Thai script, 2D-cartoon video prompts, TTS-ready script and SRT subtitles, then Thai voiceover audio with free Google Gemini TTS (female Leda / male Puck, natural non-AI delivery).",
+      "version": "1.1.0",
       "author": {
         "name": "chagkrit"
       },
       "category": "healthcare",
       "keywords": [
         "thai",
+        "health-communication",
+        "video",
+        "script",
+        "pubmed",
+        "srt",
         "tts",
         "voiceover",
-        "gemini",
-        "health-communication"
+        "gemini"
       ],
       "homepage": "https://github.com/chagkrit/Health-Clip-Thai#readme",
       "repository": "https://github.com/chagkrit/Health-Clip-Thai"
