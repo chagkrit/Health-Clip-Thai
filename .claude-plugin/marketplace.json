@@ -12,7 +12,7 @@
       "displayName": "Health Clip Thai",
       "source": "./",
       "description": "Make short Thai health and medical explainer clips end to end: topic ideas, real PubMed evidence, cited spoken-Thai script, 2D-cartoon video prompts, TTS-ready script and SRT subtitles, then Thai voiceover audio with free Google Gemini TTS (female Leda / male Puck, natural non-AI delivery).",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "chagkrit"
       },
