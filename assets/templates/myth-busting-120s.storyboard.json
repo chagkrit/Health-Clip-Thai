@@ -1,0 +1,481 @@
+{
+ "title": "แม่แบบ myth-busting 120 วินาที (ข้อความตัวอย่าง ไม่ใช่เนื้อหาจริง)",
+ "format": "myth-busting-120s",
+ "fonts": "kanit-mali",
+ "subtitle_box": true,
+ "scenes": [
+  {
+   "id": 1,
+   "section": "hook",
+   "narration": "ข้อความตัวอย่างช่วงเปิด เป็นความเชื่อที่คนคุ้นหู ลงท้ายด้วยเครื่องหมายคำถามไหม",
+   "bg": "warm",
+   "layout": "solo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "mug",
+     "slot": "a",
+     "anim": "pop",
+     "idle": "wobble",
+     "scale": 0.8
+    },
+    {
+     "type": "prop",
+     "kind": "sparkle",
+     "slot": "a",
+     "dx": 0.4,
+     "dy": -0.3,
+     "scale": 0.3,
+     "delay": 0.6
+    }
+   ],
+   "overlays": [
+    {
+     "text": "คำเชื่อผิด",
+     "at": [
+      0.5,
+      0.09
+     ],
+     "start": 0.2,
+     "style": "title"
+    },
+    {
+     "text": "?",
+     "slot": "a",
+     "dx": 0.42,
+     "dy": 0.1,
+     "start": 0.7,
+     "style": "number"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "section": "question",
+   "speaker": "patient",
+   "narration": "หมอคะ ข้อความตัวอย่างของคนไข้ที่ถามด้วยภาษาพูด เพื่อนบอกมาอีกทีหนึ่ง จริงไหมคะ",
+   "bg": "sky",
+   "layout": "duo",
+   "layers": [
+    {
+     "type": "character",
+     "slot": "a",
+     "mood": "worry",
+     "pose": "idle",
+     "anim": "slide_left",
+     "coat": "#cdb8ff",
+     "scrubs": "#ff8fa3"
+    },
+    {
+     "type": "character",
+     "slot": "b",
+     "mood": "think",
+     "pose": "think",
+     "anim": "slide_right",
+     "delay": 0.3,
+     "flip": true,
+     "coat": "white",
+     "scrubs": "teal"
+    }
+   ],
+   "overlays": []
+  },
+  {
+   "id": 3,
+   "section": "reassure",
+   "speaker": "doctor",
+   "narration": "ไม่ต้องกังวลเกินไปนะครับ ข้อความตัวอย่างที่ยอมรับส่วนจริงก่อน แต่แยกให้ชัดว่าไม่ใช่สิ่งที่เข้าใจผิด",
+   "bg": "mint",
+   "layout": "trio",
+   "layers": [
+    {
+     "type": "character",
+     "slot": "a",
+     "mood": "happy",
+     "pose": "point",
+     "anim": "slide_left",
+     "scale": 0.95,
+     "coat": "white",
+     "scrubs": "teal"
+    },
+    {
+     "type": "prop",
+     "kind": "apple",
+     "slot": "b",
+     "delay": 0.6
+    },
+    {
+     "type": "prop",
+     "kind": "drop",
+     "slot": "c",
+     "delay": 1.2,
+     "idle": "float"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "≠",
+     "at": [
+      0.67,
+      0.4
+     ],
+     "start": 1.4,
+     "style": "number"
+    },
+    {
+     "text": "ศัพท์ใหม่ (ตัวอย่าง)",
+     "start": 1.8,
+     "style": "label",
+     "size": "s",
+     "slot": "c",
+     "dy": 0.55
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "section": "compare",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างการเปรียบเทียบ ให้เห็นว่าอันหนึ่งสูงกว่าอีกอันหนึ่งมาก",
+   "bg": "lavender",
+   "layout": "duo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "bars",
+     "slot": "a",
+     "values": [
+      0.95,
+      0.12
+     ],
+     "colors": [
+      "#ef5b5b",
+      "#3fbf7f"
+     ]
+    },
+    {
+     "type": "prop",
+     "kind": "magnifier",
+     "slot": "b",
+     "delay": 0.8,
+     "idle": "wobble"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "ตัวอย่าง A",
+     "slot": "a",
+     "dx": -0.2,
+     "dy": 0.62,
+     "start": 0.8,
+     "style": "note"
+    },
+    {
+     "text": "ตัวอย่าง B",
+     "slot": "a",
+     "dx": 0.2,
+     "dy": 0.62,
+     "start": 1.0,
+     "style": "note"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "section": "mechanism",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างกลไก เกริ่นด้วยภาพเปรียบเทียบ ต่อด้วยสิ่งที่เกิดขึ้น และผลลัพธ์ที่เกิดตามมาได้ยากขึ้น",
+   "bg": "clinic",
+   "layout": "split",
+   "divider": true,
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "ring",
+     "slot": "a",
+     "progress": 1.0,
+     "color": "#8e7cf0"
+    },
+    {
+     "type": "prop",
+     "kind": "drop",
+     "slot": "a",
+     "scale": 0.35,
+     "delay": 1.5,
+     "anim": "pop"
+    },
+    {
+     "type": "prop",
+     "kind": "shield",
+     "slot": "b",
+     "delay": 2.6
+    },
+    {
+     "type": "prop",
+     "kind": "cross",
+     "slot": "b",
+     "scale": 0.4,
+     "dx": 0.3,
+     "dy": -0.3,
+     "delay": 4.0
+    }
+   ],
+   "overlays": [
+    {
+     "text": "ตัวรับ (ตัวอย่าง)",
+     "slot": "a",
+     "dy": 0.5,
+     "start": 0.8,
+     "style": "label",
+     "size": "s"
+    },
+    {
+     "text": "ได้ยากขึ้น",
+     "slot": "b",
+     "dy": 0.5,
+     "start": 4.0,
+     "style": "label"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "section": "evidence",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างหลักฐานชิ้นแรก เรียงจากชิ้นที่ตรงประเด็นที่สุด",
+   "bg": "clinic",
+   "layout": "solo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "card",
+     "slot": "a",
+     "accent": "#4a90e2",
+     "anim": "slide_right",
+     "idle": "none"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "[ประชากร / จำนวน]\n[สถานที่ / ระยะติดตาม]\n[ผลลัพธ์ตัวเลขเดียว]\n[ผู้แต่ง et al. วารสาร ปี]",
+     "slot": "a",
+     "dy": 0.0,
+     "start": 0.5,
+     "style": "label",
+     "size": "s"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "section": "evidence",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างหลักฐานชิ้นที่สอง ตัวเลขหนึ่งตัวต่อหนึ่งการ์ด",
+   "bg": "clinic",
+   "layout": "solo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "card",
+     "slot": "a",
+     "accent": "#4a90e2",
+     "anim": "slide_right",
+     "idle": "none"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "[ประชากร / จำนวน]\n[สถานที่ / ระยะติดตาม]\n[ผลลัพธ์ตัวเลขเดียว]\n[ผู้แต่ง et al. วารสาร ปี]",
+     "slot": "a",
+     "dy": 0.0,
+     "start": 0.5,
+     "style": "label",
+     "size": "s"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "section": "evidence",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างหลักฐานชิ้นที่สาม เป็นงานวิจัยเชิงสังเกตทั้งหมด",
+   "bg": "clinic",
+   "layout": "solo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "card",
+     "slot": "a",
+     "accent": "#4a90e2",
+     "anim": "slide_right",
+     "idle": "none"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "[ประชากร / จำนวน]\n[สถานที่ / ระยะติดตาม]\n[ผลลัพธ์ตัวเลขเดียว]\n[ผู้แต่ง et al. วารสาร ปี]",
+     "slot": "a",
+     "dy": 0.0,
+     "start": 0.5,
+     "style": "label",
+     "size": "s"
+    },
+    {
+     "text": "งานวิจัยเชิงสังเกต แสดงความสัมพันธ์\nไม่ใช่การพิสูจน์เหตุและผล",
+     "slot": "a",
+     "dy": 0.5,
+     "start": 1.0,
+     "style": "note"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "section": "practical",
+   "speaker": "doctor",
+   "narration": "ข้อความตัวอย่างสิ่งที่ทำได้ เลือกสามอย่างที่ปลอดภัย และเลี่ยงหนึ่งอย่างที่ควรปรึกษาแพทย์ก่อน",
+   "bg": "mint",
+   "layout": "quad",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "apple",
+     "slot": "a"
+    },
+    {
+     "type": "prop",
+     "kind": "plate",
+     "slot": "b",
+     "delay": 0.5
+    },
+    {
+     "type": "prop",
+     "kind": "check",
+     "slot": "c",
+     "delay": 1.0
+    },
+    {
+     "type": "prop",
+     "kind": "cross",
+     "slot": "d",
+     "delay": 2.2
+    }
+   ],
+   "overlays": [
+    {
+     "text": "ทำได้ (ตัวอย่าง)",
+     "slot": "c",
+     "dy": 0.6,
+     "start": 1.0,
+     "style": "note"
+    },
+    {
+     "text": "ควรเลี่ยง (ตัวอย่าง)",
+     "slot": "d",
+     "dy": 0.6,
+     "start": 2.2,
+     "style": "note"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "section": "fact-card",
+   "speaker": "doctor",
+   "narration": "สรุปความจริงทางการแพทย์ ข้อความตัวอย่างสี่บรรทัดบนการ์ดเดียว",
+   "bg": "warm",
+   "layout": "solo",
+   "layers": [
+    {
+     "type": "prop",
+     "kind": "card",
+     "slot": "a",
+     "accent": "#3fbf7f",
+     "anim": "pop",
+     "idle": "none"
+    },
+    {
+     "type": "character",
+     "slot": "a",
+     "mood": "happy",
+     "pose": "cheer",
+     "anim": "pop",
+     "delay": 0.6,
+     "dx": 0.4,
+     "dy": 0.42,
+     "scale": 0.38,
+     "coat": "white",
+     "scrubs": "teal"
+    }
+   ],
+   "overlays": [
+    {
+     "text": "ความจริงทางการแพทย์",
+     "slot": "a",
+     "dy": -0.44,
+     "start": 0.2,
+     "style": "label",
+     "size": "s"
+    },
+    {
+     "text": "1. ข้อเท็จจริงหลัก (ตัวอย่าง)\n2. กลไกสั้น ๆ\n3. สิ่งที่งานวิจัยพบ\n4. ข้อสรุปที่ทำได้จริง",
+     "slot": "a",
+     "dy": 0.0,
+     "start": 0.8,
+     "style": "label",
+     "size": "s"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "section": "cta",
+   "speaker": "doctor",
+   "narration": "ชวนแชร์คลิปนี้ ข้อความตัวอย่างปิดท้าย สงสัยตรงไหนคอมเมนต์ถามได้เลย ข้อมูลเพื่อความรู้ทั่วไป ไม่ใช่การวินิจฉัยหรือการรักษา",
+   "bg": "sky",
+   "layout": "duo",
+   "layers": [
+    {
+     "type": "character",
+     "slot": "a",
+     "mood": "happy",
+     "pose": "cheer",
+     "anim": "slide_left",
+     "coat": "#cdb8ff",
+     "scrubs": "#ff8fa3"
+    },
+    {
+     "type": "character",
+     "slot": "b",
+     "mood": "happy",
+     "pose": "wave",
+     "anim": "slide_right",
+     "flip": true,
+     "coat": "white",
+     "scrubs": "teal"
+    },
+    {
+     "type": "prop",
+     "kind": "sparkle",
+     "slot": "b",
+     "dx": -0.5,
+     "dy": -0.5,
+     "scale": 0.3,
+     "delay": 0.8
+    }
+   ],
+   "overlays": [
+    {
+     "text": "ข้อมูลเพื่อความรู้ทั่วไป ไม่ใช่การวินิจฉัยหรือการรักษา\nโปรดปรึกษาแพทย์ผู้ดูแล",
+     "at": [
+      0.5,
+      0.085
+     ],
+     "start": 0.3,
+     "style": "note",
+     "size": "s"
+    }
+   ]
+  }
+ ]
+}

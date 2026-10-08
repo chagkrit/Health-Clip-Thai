@@ -24,11 +24,13 @@ You can enter at any step, for example paste a finished script and ask only for 
 |---|---|
 | Drawing and animation | Python + **pycairo**: original host character "Nong Fah" + 22 flat props (heart, brain, clock, bars, ring, ...) on animated backgrounds; the mouth follows the real voiceover loudness |
 | Thai text and subtitles | **ASS + libass** (cairo cannot shape Thai, so no text is ever drawn in the picture) |
-| Fonts | **Sarabun** from Google Fonts (SIL OFL, commercial use allowed), bundled in `assets/fonts/` with `OFL.txt` |
+| Fonts | **Sarabun** (default), **Kanit** and **Mali** (the `kanit-mali` set) from Google Fonts (SIL OFL, commercial use allowed), bundled in `assets/fonts/` with their `OFL` files |
 | Music | **NumPy** synthesis from scratch: melody, bass, shaker, chord pad and a bell chime on the logo reveal. No samples, so no music licensing. Ducked under the voice automatically |
 | Logo | **Pillow** crops your picture to a circle, drawn over an animated ring (`--logo PATH`; your image is never copied into the repo) |
 | Assembly | **ffmpeg** through the separate `ffmpeg-skill` skill's scripts: `sequence` -> `caption --ass` -> `audio --replace` -> `loudness` -> `check` -> `look`; H.264 video + AAC audio |
 | Aspects | `16:9` 1920x1080 (default), `9:16` 1080x1920, `1:1` 1080x1080, `4:5` 1080x1350. Layout and subtitles scale per aspect; 9:16 keeps the bottom fifth free of text |
+
+**Ready-made format: "myth-busting" 120 s** (`references/format-myth-busting-120s.md`): hook with a "myth" badge, patient-asks / doctor-answers scenes (lavender vs white subtitles), comparison bars, mechanism, three research cards, fact card, CTA, 6 s logo ring that fades to white. A placeholder storyboard is in `assets/templates/myth-busting-120s.storyboard.json` (render it with `--logo-at end --logo-seconds 6`). The research numbers in the user's original example were not re-checked against PubMed, so the template contains no health claims. Carousel slides are not exported automatically yet.
 
 Timing comes from the measured voiceover (part lengths + the 0.35 s join gap, scene cuts snapped to real pauses), never from the planned script.
 

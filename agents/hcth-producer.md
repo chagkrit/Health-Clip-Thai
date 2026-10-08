@@ -23,6 +23,8 @@ only; no overclaiming; disclaimer in the spoken script; original characters).
 3. Before step 6: voice (female/male), `--group`, and that this will use N of the 10 free daily
    TTS requests. 4. Before the build: aspect list (16:9 default, 9:16, 1:1, 4:5), fps, logo file path
    (never copy the user's logo into the repo), whether to add the outro bumper.
+   Format: ask whether to use the myth-busting 120 s format (`references/format-myth-busting-120s.md`);
+   if yes write the script to ~114 s of speech, and build with `--logo-at end --logo-seconds 6`.
 
 ## Spawn ACROSS, never DOWN
 - Storyboards: split the scenes into 2-3 batches and run `hcth-storyboarder` once per batch IN PARALLEL

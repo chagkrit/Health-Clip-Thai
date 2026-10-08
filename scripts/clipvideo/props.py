@@ -422,6 +422,30 @@ def sparkle(ctx, t, p):
         fill_stroke(ctx, YELLOW, lw=0.02)
 
 
+def card(ctx, t, p):
+    """Wide blank card for text overlays (research card, fact card). w/h are fractions of the
+    unit box (w <= 1.0); accent is the header stripe colour. Thai text is added as an overlay."""
+    w, h = float(p.get("w", 0.96)), float(p.get("h", 0.62))
+    x, y = -w / 2, -h / 2
+    rounded_rect(ctx, x + 0.012, y + 0.02, w, h, 0.05)     # soft shadow
+    set_color(ctx, INK, 0.12)
+    ctx.fill()
+    rounded_rect(ctx, x, y, w, h, 0.05)
+    fill_stroke(ctx, p.get("color", WHITE))
+    bar = min(0.07, h * 0.18)
+    ctx.save()
+    rounded_rect(ctx, x, y, w, h, 0.05)
+    ctx.clip()
+    ctx.rectangle(x, y, w, bar)
+    set_color(ctx, p.get("accent", GREEN))
+    ctx.fill()
+    ctx.restore()
+    rounded_rect(ctx, x, y, w, h, 0.05)
+    set_color(ctx, INK)
+    ctx.set_line_width(0.025)
+    ctx.stroke()
+
+
 PROPS = {f.__name__: f for f in (
     heart, brain, moon, sun, clock, bed, zzz, apple, drop, magnifier, doc, check, cross, mug,
-    phone, dumbbell, plate, shield, bars, ring, timeline, sparkle)}
+    phone, dumbbell, plate, shield, bars, ring, timeline, sparkle, card)}

@@ -19,10 +19,9 @@ from . import music as musicmod
 from .draw import clamp, ease_in_out
 from .layout import ASPECTS, SUBTITLE
 from .scenes import render_scene, validate_scene
-from .subs import FONT_DIR, build_ass, make_cues, resolve_overlay_xy
+from .subs import FONT_DIR, SPEAKER_STYLE, build_ass, font_set, make_cues, resolve_overlay_xy
 from .timing import plan_scenes, speech_curve, read_wav
 
-BUMPER_S = 3.0
 XFADE_S = 0.30
 
 # ---------------------------------------------------------------- ffmpeg-skill lookup
@@ -72,7 +71,7 @@ def _init(aspect, fps, logo_path, logo_d, speech):
 def _draw_seg(ctx, seg, t):
     W, H = _G["W"], _G["H"]
     if seg["kind"] == "bumper":
-        logomod.draw_bumper(ctx, W, H, t, seg["dur"], _G["logo"], _G["logo_d"])
+        logomod.draw_bumper(ctx, W, H, t, seg["dur"], _G["logo"], _G["logo_d"], outro=seg.get("outro", False))
     else:
         sp = 0.0
         fi = int(round((seg["f0"] + t * _G["fps"]) - seg["voice_f0"]))
@@ -122,8 +121,12 @@ def load_storyboard(path):
     if not scenes:
         raise SystemExit("storyboard ไม่มี scenes")
     errs = []
+    if sb.get("fonts") is not None:
+        font_set(sb["fonts"])
     for i, sc in enumerate(scenes, 1):
         errs += validate_scene(sc, i)
+        if sc.get("speaker") not in (None, *SPEAKER_STYLE):
+            errs.append(f"scene {sc.get('id', i)}: speaker ต้องเป็น {', '.join(SPEAKER_STYLE)}")
     if errs:
         raise SystemExit("storyboard ไม่ผ่านการตรวจ:\n  " + "\n  ".join(errs))
     return sb
@@ -158,8 +161,9 @@ def build(args):
     for n in notes:
         print("หมายเหตุ:", n, file=sys.stderr)
 
-    intro = BUMPER_S if logo_path else 0.0
-    outro = BUMPER_S if (logo_path and args.outro) else 0.0
+    at = "both" if args.outro else args.logo_at
+    intro = args.logo_seconds if (logo_path and at in ("start", "both")) else 0.0
+    outro = args.logo_seconds if (logo_path and at in ("end", "both")) else 0.0
     total = intro + vtotal + outro
     nframes = int(round(total * fps))
     results = []
@@ -199,7 +203,9 @@ def _build_one(args, fs, sb, scenes, plan, vtotal, vx, vsr, runs, aspect, fps, o
     for i, sc in enumerate(scenes):
         p = plan[i]
         text = sc.get("subtitle") or sc["narration"]
-        cues += make_cues(text, p["start"], p["end"], runs, aspect, voice_offset=intro)
+        cues += make_cues(text, p["start"], p["end"], runs, aspect, voice_offset=intro,
+                          family=font_set(sb.get("fonts"))["sub"], speaker=sc.get("speaker"),
+                          min_cue=2.5 if sb.get("format") else 0.5)
         for ov in sc.get("overlays", []):
             o = dict(ov)
             o["a"] = intro + p["start"] + ov.get("start", 0.3)
@@ -208,14 +214,19 @@ def _build_one(args, fs, sb, scenes, plan, vtotal, vx, vsr, runs, aspect, fps, o
                 o["a"] = max(intro + p["start"], o["b"] - 0.4)
             o["xy"] = resolve_overlay_xy(ov, sc, aspect)
             overlays.append(o)
-    ass_text = build_ass(aspect, cues, overlays, None, title=sb.get("title", name))
+    if sb.get("format"):   # formats carry subtitle timing rules (myth-busting: 2.5-7 s per cue)
+        for c in cues:
+            if not 2.5 <= c[2] - c[1] <= 7.0:
+                warns.append(f"ซับ {_srt_t(c[1])} อยู่บนจอ {c[2] - c[1]:.1f} วินาที (กฎรูปแบบ: 2.5-7)")
+    ass_text = build_ass(aspect, cues, overlays, None, title=sb.get("title", name),
+                         fonts=sb.get("fonts"), box=bool(sb.get("subtitle_box")))
     for o in overlays:
         if o.get("_warn"):
             warns.append(o["_warn"])
     ass_path = work / "subs.ass"
     ass_path.write_text(ass_text, encoding="utf-8")
     srt = []
-    for k, (t_, a, b) in enumerate(sorted(cues, key=lambda c: c[1]), 1):
+    for k, (t_, a, b, _st) in enumerate(sorted(cues, key=lambda c: c[1]), 1):
         srt.append(f"{k}\n{_srt_t(a)} --> {_srt_t(b)}\n{t_.replace(chr(92) + 'N', chr(10))}\n")
     srt_path = out / f"{name}_{tag}.srt" if multi else out / f"{name}.srt"
     srt_path.write_text("\n".join(srt), encoding="utf-8")

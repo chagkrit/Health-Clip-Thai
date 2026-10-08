@@ -27,7 +27,10 @@ def main(argv=None):
     b.add_argument("--aspect", default="16:9", help=f"one or more of {', '.join(ASPECTS)} (comma-separated)")
     b.add_argument("--fps", type=int, default=30)
     b.add_argument("--logo", help="logo image: cropped to a circle inside an animated ring (intro bumper + chime)")
-    b.add_argument("--outro", action="store_true", help="repeat the logo bumper at the end")
+    b.add_argument("--outro", action="store_true", help="same as --logo-at both")
+    b.add_argument("--logo-at", default="start", choices=["start", "end", "both"],
+                   help="where the logo bumper goes (myth-busting format: end)")
+    b.add_argument("--logo-seconds", type=float, default=3.0, help="bumper length (myth-busting format: 6)")
     b.add_argument("--music", default="calm", choices=["calm", "bright", "gentle"])
     b.add_argument("--music-level", type=float, default=0.55)
     b.add_argument("--duck-db", type=float, default=-12.0, help="music reduction while the voice speaks")

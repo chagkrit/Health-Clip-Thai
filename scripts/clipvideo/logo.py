@@ -97,3 +97,8 @@ def draw_bumper(ctx, W, H, t, dur, logo_surf, logo_d, outro=False):
             star4(ctx, cx + r * math.cos(a), cy + r * math.sin(a), m * 0.016 * (1 - k) + 1)
             set_color(ctx, YELLOW, 1 - k)
             ctx.fill()
+    # closing bumper fades to white over its last second
+    if outro and dur > 1.5 and t > dur - 1.0:
+        set_color(ctx, WHITE, clamp((t - (dur - 1.0)) / 1.0))
+        ctx.rectangle(0, 0, W, H)
+        ctx.fill()

@@ -6,7 +6,7 @@
 |---|---|
 | วาดภาพและแอนิเมชัน | Python + **pycairo** (ตัวละครต้นฉบับ "น้องฟ้า" + ไอคอนแบน 22 แบบ) |
 | ข้อความไทยและซับไตเติล | ไฟล์ **ASS** แล้วเผาด้วย **libass** (cairo ไม่จัดสระ/วรรณยุกต์ไทย จึงไม่วาดตัวอักษรในภาพเลย) |
-| ฟอนต์ | **Sarabun** จาก Google Fonts (SIL OFL ใช้เชิงพาณิชย์ได้) อยู่ใน `assets/fonts/` พร้อม `OFL.txt` |
+| ฟอนต์ | **Sarabun** (ค่าเริ่มต้น) กับ **Kanit** และ **Mali** (ชุด `kanit-mali` ของรูปแบบ myth-busting) จาก Google Fonts (SIL OFL ใช้เชิงพาณิชย์ได้) อยู่ใน `assets/fonts/` พร้อมไฟล์ OFL ของแต่ละตัว |
 | เพลงประกอบ | Python + **NumPy** สังเคราะห์ใหม่ทั้งหมด: ทำนอง เบส เสียงเขย่า คอร์ดพื้น และเสียงกระดิ่งตอนขึ้นโลโก้ |
 | โลโก้ | **Pillow** ครอปรูปเป็นวงกลม แล้ววาดซ้อนกับวงแหวนเคลื่อนไหว (รูปอ่านจาก `--logo` ไม่ถูกคัดลอกเข้า skill) |
 | รวมไฟล์ | **ffmpeg** ผ่านสคริปต์ของ `ffmpeg-skill`: `sequence` → `caption --ass` → `audio --replace` → `loudness` → `check` → `look` ได้ H.264 + AAC |
@@ -36,7 +36,7 @@ $R $S/make_video.py build --storyboard storyboard.json --voice voice/voiceover.w
     --logo ~/path/logo.png --outro --music calm --out out/ --name clip
 ```
 
-ตัวเลือกสำคัญ: `--aspect` (`16:9` 1920×1080 ค่าเริ่มต้น, `9:16` 1080×1920, `1:1` 1080×1080, `4:5` 1080×1350), `--fps` (30), `--logo`, `--outro`, `--music calm|bright|gentle`, `--duck-db` (-12), `--lufs` (-14), `--work` (โฟลเดอร์เฟรมชั่วคราว ต้องอยู่นอก skill), `--jobs`, `--keep-frames`, `make_video.py validate FILE` ตรวจ storyboard โดยไม่เรนเดอร์
+ตัวเลือกสำคัญ: `--logo-at start|end|both` (ค่าเริ่มต้น start; `--outro` = both), `--logo-seconds` (3; รูปแบบ myth-busting ใช้ `end` + 6 และบัมเปอร์ท้ายเฟดขาวช่วงวินาทีสุดท้าย), `--aspect` (`16:9` 1920×1080 ค่าเริ่มต้น, `9:16` 1080×1920, `1:1` 1080×1080, `4:5` 1080×1350), `--fps` (30), `--logo`, `--outro`, `--music calm|bright|gentle`, `--duck-db` (-12), `--lufs` (-14), `--work` (โฟลเดอร์เฟรมชั่วคราว ต้องอยู่นอก skill), `--jobs`, `--keep-frames`, `make_video.py validate FILE` ตรวจ storyboard โดยไม่เรนเดอร์
 
 ผลลัพธ์ต่อสัดส่วน: `NAME_16x9.mp4`, `NAME_16x9.srt`, `NAME_16x9_sheet.png` (contact sheet), `_work/16x9/plan.json` (เวลาแต่ละฉากที่วัดจากเสียงจริง) และสรุป JSON (ffprobe, ducking, ผล check, เวลาแต่ละขั้น)
 
@@ -75,12 +75,18 @@ $R $S/make_video.py build --storyboard storyboard.json --voice voice/voiceover.w
 }
 ```
 
+- **ระดับ storyboard (ไม่บังคับ):** `format` (ใส่ชื่อรูปแบบ เช่น `myth-busting-120s` เพื่อให้เตือนเมื่อซับอยู่บนจอนอก 2.5–7 วินาที และกันเวลาซับต่ำสุด 2.5 วินาที), `fonts` (`sarabun` ค่าเริ่มต้น | `kanit-mali`), `subtitle_box` (true = ซับบนกล่องเข้มโปร่งแสง)
+- **ระดับฉาก:** `speaker` = `patient` (ซับม่วงอ่อน) | `doctor` (ขาว) ไม่ใส่ = ขาว
 - **`bg`**: `sky` `warm` `mint` `lavender` `clinic` `night`
 - **`layout` / slot** (ตำแหน่งปรับตามสัดส่วนเอง ไม่ต้องใส่พิกเซล): `solo` (a) · `duo` (a ตัวละคร/หลัก, b รอง) · `split` (a|b เท่ากัน, แนวตั้งเป็นบน/ล่าง) · `trio` (a b c) · `quad` (a b c d)
 - **layer**: `type` = `character` หรือ `prop`; ร่วมกัน: `slot`, `scale`, `dx`/`dy` (หน่วยเป็นสัดส่วนของช่อง), `rot`, `flip`, `delay` (วินาทีนับจากต้นฉาก), `anim` = `pop` `fade` `slide_left` `slide_right` `slide_up` `none`, `idle` = `float` `pulse` `wobble` `none`, `state`: `dim`
 - **character**: `mood` = `happy` `think` `worry` `wow`; `pose` = `idle` `wave` `point` `think` `cheer`; `coat`/`scrubs` เปลี่ยนสีได้
-- **prop `kind`**: `heart brain moon sun clock bed zzz apple drop magnifier doc check cross mug phone dumbbell plate shield bars ring timeline sparkle`; พารามิเตอร์ที่ใช้ได้: `color`, `hours` (clock), `values`/`colors` (bars, ค่า 0–1), `progress` (ring, 0–1), `points` (timeline), `lines` (doc)
+- **prop `kind`**: `heart brain moon sun clock bed zzz apple drop magnifier doc check cross mug phone dumbbell plate shield bars ring timeline sparkle card`; พารามิเตอร์ที่ใช้ได้: `color`, `w`/`h`/`accent` (card: การ์ดเปล่ากว้างสำหรับวางข้อความ overlay, `w`≤1.0), `hours` (clock), `values`/`colors` (bars, ค่า 0–1), `progress` (ring, 0–1), `points` (timeline), `lines` (doc)
 - **overlay** (ข้อความไทยในฉาก ผ่าน ASS): `text` (ขึ้นบรรทัดใหม่ด้วย `\n`), ตำแหน่งแบบ `slot` + `dx`/`dy` หรือ `at: [fx, fy]` (สัดส่วนของเฟรม), `start`/`end` (วินาทีในฉาก; `end` ว่าง = จนจบฉาก), `style` = `title` `label` `number` `note`, `size` = `s` `m` `l` ข้อความกว้างเกินเฟรมจะถูกย่อให้พอดีและรายงานใน `warnings`
+
+รูปแบบสำเร็จรูป: `format-myth-busting-120s.md` (storyboard แม่แบบอยู่ที่ `assets/templates/myth-busting-120s.storyboard.json`)
+
+อย่าใช้อักขระ ✓ ✗ • ในข้อความ (ฟอนต์ไม่มีกลิฟหรือแสดงผลเพี้ยน) ใช้ prop `check`/`cross` แทน
 
 ใช้ไอคอน/ตัวละครที่มีให้เท่านั้น ถ้าต้องการภาพใหม่ ให้เพิ่มฟังก์ชันใน `scripts/clipvideo/props.py` (ลงทะเบียนใน `PROPS`) แล้วรัน `validate`
 

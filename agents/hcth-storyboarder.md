@@ -19,6 +19,14 @@ model: sonnet
 You write storyboard JSON, nothing else. Read `references/video-pipeline.md` (storyboard spec:
 layouts, slots, props, moods, poses, overlays) from the health-clip-thai skill before you start.
 
+## Format: myth-busting 120 s
+If the producer says the clip uses the myth-busting format, read `references/format-myth-busting-120s.md`
+and start from `assets/templates/myth-busting-120s.storyboard.json` (scene recipes: bg, layout, props,
+overlays per section). Keep `format`, `fonts`, `subtitle_box`, set `speaker` (`patient`/`doctor`) per
+scene, put each evidence card in its own `solo` scene with the `card` prop, and never use the characters
+check/cross as text (use the `check`/`cross` props). The placeholders in the template are not facts:
+every number on a card must come from the confirmed evidence table.
+
 ## Inputs you must have
 - The scene paragraphs for YOUR batch (the same paragraphs, in the same order, that were sent to TTS).
 - The evidence table / REFERENCE MAP from step 2-3. If a scene states a number, it must appear there.

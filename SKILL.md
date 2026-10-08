@@ -1,6 +1,6 @@
 ---
 name: health-clip-thai
-description: Workflow for short Thai health and medical explainer clips (about 120 s, 2D cartoon, aspect 16:9 / 9:16 / 1:1 / 4:5) - choose a topic, find real PubMed evidence, write a cited spoken-Thai script, make video prompts and SRT subtitles, record the Thai voiceover as WAV with free Google Gemini TTS (female Leda or male Puck), then build a finished 1080p H.264/AAC MP4 with code-drawn animation (pycairo), ASS Thai subtitles, original NumPy-synthesised music, a circular logo ring bumper and ffmpeg-skill assembly, optionally run by a small subagent team. Use whenever the user wants a health or medical video, clip, MP4, YouTube/TikTok/Reels/Shorts, คลิปสุขภาพ, สคริปต์ 120 วินาที, prompt วิดีโอการ์ตูน, ซับไตเติลไทย, Thai narration, พากย์เสียงไทย, voiceover, ทำวิดีโอสำเร็จรูป, ตัดต่อ - including a single stage such as audio from an existing script, or an MP4 from an existing script and voice. Not for ElevenLabs pipelines (use hearyourvoice) or speech-to-text.
+description: Workflow for short Thai health and medical explainer clips (about 120 s, 2D cartoon, aspect 16:9 / 9:16 / 1:1 / 4:5) - choose a topic, find real PubMed evidence, write a cited spoken-Thai script, make video prompts and SRT subtitles, record the Thai voiceover as WAV with free Google Gemini TTS (female Leda or male Puck), then build a finished 1080p H.264/AAC MP4 with code-drawn animation (pycairo), ASS Thai subtitles, original NumPy-synthesised music, a circular logo ring bumper and ffmpeg-skill assembly, optionally run by a small subagent team. Includes a ready-made "myth-busting" 120 s format (hook, patient-doctor Q&A, mechanism, three evidence cards, fact card, CTA, logo). Use whenever the user wants a health or medical video, clip, MP4, YouTube/TikTok/Reels/Shorts, คลิปสุขภาพ, สคริปต์ 120 วินาที, prompt วิดีโอการ์ตูน, ซับไตเติลไทย, Thai narration, พากย์เสียงไทย, voiceover, ทำวิดีโอสำเร็จรูป, ตัดต่อ - including a single stage such as audio from an existing script, or an MP4 from an existing script and voice. Not for ElevenLabs pipelines (use hearyourvoice) or speech-to-text.
 ---
 
 # Health Clip Thai — ทำคลิปสุขภาพพร้อมเสียงบรรยายไทย
@@ -26,6 +26,8 @@ description: Workflow for short Thai health and medical explainer clips (about 1
 - สคริปต์ห้ามสรุปเกินหลักฐาน ห้ามใช้ "พิสูจน์แล้ว", "ชัวร์", "หายขาด", "ป้องกันได้ 100%" และต้องมีประโยคปฏิเสธความรับผิดชอบทางการแพทย์ตอนปิดท้าย
 - ห้ามเสนอหัวข้อที่เป็นการวินิจฉัยหรือรักษาเฉพาะบุคคล ขนาดยา ผลิตภัณฑ์/แบรนด์ หรือเนื้อหาปลุกความกลัว
 - ภาพการ์ตูนต้องเป็นตัวละครต้นฉบับ ห้ามเลียน Snoopy/Peanuts หรือตัวละครมีลิขสิทธิ์
+
+**รูปแบบสำเร็จรูป "Myth-Busting" 120 วินาที** (ความเชื่อผิด → คนไข้ถามหมอตอบ → กลไก → การ์ดหลักฐาน 3 ใบ → Fact Card → CTA → โลโก้): อ่าน `references/format-myth-busting-120s.md` ก่อนเขียนบทขั้น 3 เมื่อผู้ใช้ขอรูปแบบนี้ หรือไม่ได้ระบุรูปแบบ (ให้ถามว่าจะใช้หรือไม่) ตัวอย่างและตัวเลขในไฟล์นั้นยังไม่ผ่านการตรวจ PubMed ห้ามนำไปใช้เป็นข้อเท็จจริง
 
 ขั้น 7 อ่าน `references/video-pipeline.md` ก่อนรัน และเลือกสัดส่วนได้: `16:9` (1920×1080 ค่าเริ่มต้น), `9:16` (1080×1920), `1:1` (1080×1080), `4:5` (1080×1350) หลายสัดส่วนในคำสั่งเดียวได้
 
@@ -94,7 +96,7 @@ uv run --with "google-genai>=2.25" python "$TTS" \
 
 รายละเอียดเต็ม (เครื่องมือ, storyboard JSON, การคิดเวลา, เสียง, การตรวจ) อยู่ใน `references/video-pipeline.md` ย่อ ๆ:
 
-1. ทำ **storyboard JSON** จากบท (หนึ่งฉากต่อหนึ่งย่อหน้า `narration` ที่ส่งเข้า TTS) เลือก `bg`, `layout`, `layers` (ตัวละคร "น้องฟ้า" + ไอคอนแบน) และ `overlays` (ข้อความไทยทั้งหมดต้องมาทาง overlay/ซับ ห้ามวาดตัวอักษรไทยด้วย cairo) แล้วรัน `make_video.py validate`
+1. ทำ **storyboard JSON** จากบท (รูปแบบ myth-busting: เริ่มจาก `assets/templates/myth-busting-120s.storyboard.json`, ใส่ `fonts`, `subtitle_box`, `speaker`, และรันด้วย `--logo-at end --logo-seconds 6`) (หนึ่งฉากต่อหนึ่งย่อหน้า `narration` ที่ส่งเข้า TTS) เลือก `bg`, `layout`, `layers` (ตัวละคร "น้องฟ้า" + ไอคอนแบน) และ `overlays` (ข้อความไทยทั้งหมดต้องมาทาง overlay/ซับ ห้ามวาดตัวอักษรไทยด้วย cairo) แล้วรัน `make_video.py validate`
 2. **ถามผู้ใช้**: สัดส่วนที่ต้องการ, path ไฟล์โลโก้ (ไม่มีโลโก้ = ไม่มีบัมเปอร์/เสียงกระดิ่ง, ห้าม commit รูปของผู้ใช้เข้า repo), fps (30), ต้องการบัมเปอร์ท้ายหรือไม่
 3. รัน `make_video.py build ...` (ใช้ `uv run --with pycairo --with numpy --with pillow --with pythainlp`) ทดสอบระบบด้วย `make_video.py demo` ก่อน ไม่เสียโควตา TTS
 4. ตรวจตามหัวข้อ "ตรวจก่อนส่งมอบ": ตัวเลข ffprobe, `check.py`, เปิด contact sheet ทุกสัดส่วน และบอกผู้ใช้ตรง ๆ ว่าผมฟังเสียง/เพลงไม่ได้
