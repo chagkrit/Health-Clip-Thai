@@ -47,7 +47,7 @@ Needs: `uv`, a cairo toolchain for pycairo (`brew install cairo pkgconf` on macO
 
 ### Step 8: carousel + caption
 
-`make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5` renders the two slides (slide 1: the myth in big type with a "myth?" badge; slide 2: 3-4 medical-fact cards, an observational-study note and a disclaimer) as PNGs. Same rules as the video: pycairo draws only backgrounds and icons, all Thai text goes through ASS + libass, then `ffmpeg-skill` `look --at` pulls the stills. Aspects: `4:5` (default), `1:1`, `9:16`, `16:9`. The caption template and its evidence rules (only PubMed records retrieved in step 2, observational wording, disclaimer last) are in `references/post-package.md`.
+`make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5` renders the two slides (slide 1: the myth in big type with a "myth?" badge; slide 2: 3-4 medical-fact cards, an observational-study note and a disclaimer) as PNGs. Same rules as the video: pycairo draws only backgrounds and icons, all Thai text goes through ASS + libass, then `ffmpeg-skill` `look --at` pulls the stills. Aspects: `4:5` (default) and `1:1` (feed formats; 9:16 / 16:9 are not supported by the carousel layout). The caption template and its evidence rules (only PubMed records retrieved in step 2, observational wording, disclaimer last) are in `references/post-package.md`.
 
 ### Subagent team (hearyourvoice style)
 

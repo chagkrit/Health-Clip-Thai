@@ -19,6 +19,7 @@ from .scenes import draw_background
 from .subs import FONT_DIR, _c, _t, flow_lines, font_set, text_width
 
 DEFAULT_ASPECT = "4:5"
+CAROUSEL_ASPECTS = ("4:5", "1:1")   # feed formats; 9:16 / 16:9 need a different layout (UI-safe zones, landscape)
 FPS = 10   # frames per second of the throwaway 2-second stills video
 BAD_GLYPHS = "✓✗•"
 DISCLAIMER = "ข้อมูลทั่วไป ไม่ใช่การวินิจฉัยหรือรักษา ปรึกษาแพทย์ผู้ดูแลก่อนเปลี่ยนแปลงการรักษา"
@@ -168,8 +169,8 @@ def _ass(W, H, fam, events):
 
 
 def make_carousel(spec_path, out_dir, name="carousel", aspect=DEFAULT_ASPECT, work=None):
-    if aspect not in ASPECTS:
-        raise SystemExit(f"aspect '{aspect}' ไม่รู้จัก ({', '.join(ASPECTS)})")
+    if aspect not in CAROUSEL_ASPECTS:
+        raise SystemExit(f"carousel รองรับเฉพาะ {', '.join(CAROUSEL_ASPECTS)} (ได้ '{aspect}')")
     spec = load_spec(spec_path)
     W, H = ASPECTS[aspect]
     fam = font_set(spec.get("fonts"))

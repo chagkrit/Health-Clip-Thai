@@ -33,7 +33,7 @@
 ```bash
 S=~/.claude/skills/health-clip-thai/scripts   # หรือ path ใต้ ~/.claude/plugins/cache/
 R="uv run --with pycairo --with numpy --with pillow --with pythainlp python"
-$R $S/make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5   # 4:5 (ค่าเริ่มต้น) | 1:1 | 9:16 | 16:9
+$R $S/make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5   # 4:5 (ค่าเริ่มต้น) | 1:1 (รองรับเฉพาะสองสัดส่วนนี้ เพราะเป็นสัดส่วนโพสต์ฟีด)
 ```
 
 ผลลัพธ์: `out/clip_slide1_4x5.png`, `out/clip_slide2_4x5.png` ข้อความไทยผ่าน ASS + libass เหมือนวิดีโอ (cairo ไม่วาดตัวอักษร) แล้วดึงภาพนิ่งด้วย `ffmpeg-skill` `look --at` จึงต้องมี `ffmpeg-skill` เช่นเดียวกับขั้น 7

@@ -51,7 +51,7 @@ def main(argv=None):
     c.add_argument("spec", help="carousel.json: slide1{headline,badge?,icon?}, slide2{points[],title?,note?}, fonts?")
     c.add_argument("--out", required=True)
     c.add_argument("--name", default="carousel")
-    c.add_argument("--aspect", default="4:5", help="4:5 (default, Instagram), 1:1, 9:16 or 16:9")
+    c.add_argument("--aspect", default="4:5", choices=["4:5", "1:1"], help="4:5 (default, Instagram/Facebook feed) or 1:1")
     c.add_argument("--work", help="scratch dir (default: a temp dir, deleted afterwards)")
 
     m = sub.add_parser("music", help="render only the background music WAV")
