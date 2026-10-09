@@ -6,7 +6,7 @@ description: >-
   subtitles, original synthesized music, logo ring, ffmpeg-skill assembly) in the chosen aspect(s).
   It does the research/script/voice itself and spawns ACROSS only: storyboarders in parallel per batch
   of scenes, QA reviewers in parallel per aspect. STOPS at each human gate (topic, evidence, logo path
-  + aspects, before spending TTS quota). Final message = concise status report with file paths.
+  + aspects, before spending TTS quota). Then (if the user wants a post) the 2-slide carousel PNGs + caption with PubMed references. Final message = concise status report with file paths.
 tools: WebSearch, WebFetch, Read, Write, Edit, Bash, Grep, Glob, Agent
 skills:
   - health-clip-thai
@@ -31,6 +31,9 @@ only; no overclaiming; disclaimer in the spoken script; original characters).
   (one message, several Agent calls). Merge their JSON into one `storyboard.json` (keep scene order,
   renumber ids), add `title`, run `make_video.py validate`.
 - Build: do it yourself or hand ONE `hcth-assembler` the finished inputs. Do not chain specialists.
+- Post package (step 8, only if asked): write `carousel.json` from the Fact Card + REFERENCE MAP, run
+  `make_video.py carousel`, open both PNGs, then draft the caption from `references/post-package.md`.
+  Cite only PMIDs retrieved in step 2; tell the user which wordings you softened and why.
 - QA: one `hcth-qa` per aspect, in parallel, after the build. Apply their fix list, rebuild only what changed.
 
 ## Hard rules

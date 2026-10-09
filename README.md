@@ -14,7 +14,8 @@ Claude Code skill for making **short Thai health and medical explainer clips** (
 | 4 | Convert to ~8 s scene prompts for AI video generators (original characters, no text in frame) | |
 | 5 | TTS-ready script and `.srt` subtitles | |
 | 6 | Record Thai voiceover WAV with Gemini TTS | |
-| 7 | Build the finished MP4: code-drawn cartoon animation, ASS Thai subtitles, synthesized music, logo ring, ffmpeg-skill assembly | aspect ratio, logo path |
+| 7 | Build the finished MP4: code-drawn cartoon animation, ASS Thai subtitles, synthesized music (ducked under the voice), animated logo ring + bell chime, ffmpeg-skill assembly | aspect ratio, logo path |
+| 8 | Post package: 2-slide carousel PNGs (myth / medical fact) + caption with PubMed references, hashtags and disclaimer | |
 
 You can enter at any step, for example paste a finished script and ask only for the audio. The full prompts and strict evidence rules are in `references/workflow-prompts.md`.
 
@@ -43,6 +44,10 @@ $R $S/make_video.py build --storyboard storyboard.json --voice voice/voiceover.w
 ```
 
 Needs: `uv`, a cairo toolchain for pycairo (`brew install cairo pkgconf` on macOS), `pythainlp` (pulled in by `uv --with`; word-safe Thai line breaks), `ffmpeg` with libass + libx264, and the **ffmpeg-skill** skill (found automatically in `~/.claude/skills/ffmpeg-skill` or via `FFMPEG_SKILL_DIR`). Full spec (storyboard JSON, timing rules, audio chain, checks): `references/video-pipeline.md`.
+
+### Step 8: carousel + caption
+
+`make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5` renders the two slides (slide 1: the myth in big type with a "myth?" badge; slide 2: 3-4 medical-fact cards, an observational-study note and a disclaimer) as PNGs. Same rules as the video: pycairo draws only backgrounds and icons, all Thai text goes through ASS + libass, then `ffmpeg-skill` `look --at` pulls the stills. Aspects: `4:5` (default), `1:1`, `9:16`, `16:9`. The caption template and its evidence rules (only PubMed records retrieved in step 2, observational wording, disclaimer last) are in `references/post-package.md`.
 
 ### Subagent team (hearyourvoice style)
 

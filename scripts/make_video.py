@@ -47,6 +47,13 @@ def main(argv=None):
     d = sub.add_parser("demo", help="write a neutral demo storyboard + synthetic voice (no TTS quota)")
     d.add_argument("--out", required=True)
 
+    c = sub.add_parser("carousel", help="2-slide carousel PNGs (myth / medical fact) from a spec JSON")
+    c.add_argument("spec", help="carousel.json: slide1{headline,badge?,icon?}, slide2{points[],title?,note?}, fonts?")
+    c.add_argument("--out", required=True)
+    c.add_argument("--name", default="carousel")
+    c.add_argument("--aspect", default="4:5", help="4:5 (default, Instagram), 1:1, 9:16 or 16:9")
+    c.add_argument("--work", help="scratch dir (default: a temp dir, deleted afterwards)")
+
     m = sub.add_parser("music", help="render only the background music WAV")
     m.add_argument("--seconds", type=float, default=30)
     m.add_argument("--mood", default="calm", choices=["calm", "bright", "gentle"])
@@ -61,6 +68,9 @@ def main(argv=None):
         from clipvideo.selftest import write_demo
         sb, wav, dur = write_demo(a.out)
         print(json.dumps({"storyboard": str(sb), "voice": str(wav), "voice_seconds": round(dur, 2)}, ensure_ascii=False))
+    elif a.cmd == "carousel":
+        from clipvideo.carousel import make_carousel
+        make_carousel(a.spec, a.out, a.name, a.aspect, a.work)
     elif a.cmd == "music":
         from clipvideo import music
         x = music.synth_music(a.seconds, a.mood)

@@ -28,7 +28,11 @@ Inputs: the MP4, its `.srt`, `_work/<aspect>/plan.json`, `narration.txt`, the ev
    text over faces, subtitle inside the platform safe zone, and layout glitches, with timestamps.
 4. Timing: compare plan.json scene starts to where the SRT cues begin; flag drift > 0.5 s.
 5. Audio numbers only (loudness via `check.py`); you cannot hear it, so say so.
-6. Originality: the host character is the built-in one; flag any lookalike of a copyrighted character.
+6. Post package (only if carousel PNGs / a caption were produced): every caption number and every reference
+   (author, journal, year, PMID) must match the confirmed evidence table; observational studies must be worded
+   as association with the observational note; the caption must end with the medical disclaimer; open the
+   carousel PNGs and check Thai marks, overflow and that slide 2 matches the video's Fact Card.
+7. Originality: the host character is the built-in one; flag any lookalike of a copyrighted character.
 
 Final message: a table `item | PASS/FAIL | evidence (timestamp, text)` then a short fix list for the
 storyboarder/assembler. Do not edit any file.

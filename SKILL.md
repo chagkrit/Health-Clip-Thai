@@ -1,13 +1,13 @@
 ---
 name: health-clip-thai
-description: Workflow for short Thai health and medical explainer clips (about 120 s, 2D cartoon, aspect 16:9 / 9:16 / 1:1 / 4:5) - choose a topic, find real PubMed evidence, write a cited spoken-Thai script, make video prompts and SRT subtitles, record the Thai voiceover as WAV with free Google Gemini TTS (female Leda or male Puck), then build a finished 1080p H.264/AAC MP4 with code-drawn animation (pycairo), ASS Thai subtitles, original NumPy-synthesised music, a circular logo ring bumper and ffmpeg-skill assembly, optionally run by a small subagent team. Includes a ready-made "myth-busting" 120 s format (hook, patient-doctor Q&A, mechanism, three evidence cards, fact card, CTA, logo). Use whenever the user wants a health or medical video, clip, MP4, YouTube/TikTok/Reels/Shorts, คลิปสุขภาพ, สคริปต์ 120 วินาที, prompt วิดีโอการ์ตูน, ซับไตเติลไทย, Thai narration, พากย์เสียงไทย, voiceover, ทำวิดีโอสำเร็จรูป, ตัดต่อ - including a single stage such as audio from an existing script, or an MP4 from an existing script and voice. Not for ElevenLabs pipelines (use hearyourvoice) or speech-to-text.
+description: Workflow for short Thai health and medical explainer clips (about 120 s, 2D cartoon, aspect 16:9 / 9:16 / 1:1 / 4:5) - choose a topic, find real PubMed evidence, write a cited spoken-Thai script, make video prompts and SRT subtitles, record the Thai voiceover as WAV with free Google Gemini TTS (female Leda or male Puck), then build a finished 1080p H.264/AAC MP4 with code-drawn animation (pycairo), ASS Thai subtitles, original NumPy-synthesised music, a circular logo ring bumper and ffmpeg-skill assembly, optionally run by a small subagent team, plus a 2-slide carousel (myth / medical fact PNGs) and a caption with PubMed references and hashtags for the post. Includes a ready-made "myth-busting" 120 s format (hook, patient-doctor Q&A, mechanism, three evidence cards, fact card, CTA, logo). Use whenever the user wants a health or medical video, clip, MP4, YouTube/TikTok/Reels/Shorts, คลิปสุขภาพ, สคริปต์ 120 วินาที, prompt วิดีโอการ์ตูน, ซับไตเติลไทย, Thai narration, พากย์เสียงไทย, voiceover, ทำวิดีโอสำเร็จรูป, ตัดต่อ - including a single stage such as audio from an existing script, or an MP4 from an existing script and voice. Not for ElevenLabs pipelines (use hearyourvoice) or speech-to-text.
 ---
 
 # Health Clip Thai — ทำคลิปสุขภาพพร้อมเสียงบรรยายไทย
 
 ผู้ใช้เข้าได้ทุกขั้น (เช่น มีบทแล้วต้องการแค่เสียง) ให้ถามว่าอยู่ขั้นไหนเฉพาะเมื่อไม่ชัดจากคำขอ อย่าพาทำทุกขั้นถ้าไม่ได้ขอ
 
-## เวิร์กโฟลว์ 7 ขั้น
+## เวิร์กโฟลว์ 8 ขั้น
 
 ข้อความ prompt เต็มและกฎเข้มงวดของขั้น 1–5 อยู่ใน `references/workflow-prompts.md` **อ่านเฉพาะส่วนของขั้นที่กำลังทำ** (ไม่ต้องอ่านทั้งไฟล์ล่วงหน้า) แล้วทำตามนั้นในบทสนทนาเลย อย่าพิมพ์ prompt ย้อนให้ผู้ใช้ ขั้น 1 และ 2 ต้องหยุดรอคำตอบผู้ใช้ตามที่ prompt กำหนด
 
@@ -19,7 +19,8 @@ description: Workflow for short Thai health and medical explainer clips (about 1
 | 4 | แปลงสคริปต์เป็น video prompt ฉากละ ~8 วินาที (การ์ตูน 2D, ไม่มีตัวอักษรในภาพ, ไม่ใช้ตัวละครลิขสิทธิ์) แล้วจัดรูปแบบ `Scene N` + batch prompt (ข้ามได้ถ้าจะทำ MP4 ด้วยขั้น 7 เพราะขั้น 7 วาดภาพให้เอง) | STYLE BIBLE + prompt ต่อฉาก | ไม่ (ทำเมื่อผู้ใช้ต้องการภาพ) |
 | 5 | TTS-READY SCRIPT + ไฟล์ SRT | สคริปต์พร้อมอ่าน + `.srt` | ไม่ |
 | 6 | บันทึกเสียงไทยเป็นไฟล์ WAV ด้วย Gemini TTS | `voice/part_XX.wav`, `voiceover.wav` | ไม่ |
-| 7 | ประกอบ MP4 สำเร็จรูป: ภาพ+แอนิเมชัน (pycairo), ซับ ASS, เพลง NumPy, logo ring, ffmpeg | `NAME_16x9.mp4` (+ `.srt`, contact sheet) | ถาม: สัดส่วน, path โลโก้ |
+| 7 | ประกอบ MP4 สำเร็จรูป: ภาพ+แอนิเมชัน (pycairo), ซับ ASS, เพลงสังเคราะห์ด้วย NumPy (เสียงเบาลงอัตโนมัติเมื่อมีเสียงพูด), logo ring เคลื่อนไหว + เสียงกระดิ่ง, ffmpeg | `NAME_16x9.mp4` (+ `.srt`, contact sheet) | ถาม: สัดส่วน, path โลโก้ |
+| 8 | ชุดโพสต์: Carousel 2 สไลด์ (ความเชื่อผิด / ข้อเท็จจริงทางการแพทย์) เป็น PNG + แคปชันพร้อมอ้างอิง PMID + แฮชแท็ก + รายการคำที่ปรับเพื่อความถูกต้อง | `NAME_slide1/2_4x5.png` + ข้อความแคปชัน | ไม่ (ทำเมื่อผู้ใช้ต้องการโพสต์) |
 
 กฎที่ห้ามพลาด (มาจากต้นฉบับ):
 - **ขั้น 2 ต้องใช้หลักฐานที่เปิดอ่านได้จริงเท่านั้น** ใช้เครื่องมือ PubMed / Semantic Scholar หรือ WebFetch ไปที่ `pubmed.ncbi.nlm.nih.gov/[PMID]/` ห้ามสร้าง PMID/DOI/ลิงก์ขึ้นเอง ถ้าเข้าถึงเครื่องมือค้นหาไม่ได้ให้บอกผู้ใช้ตรง ๆ แล้วหยุด ตรวจว่าไม่ถูกถอนตีพิมพ์ และตัวเลขตรงกับ abstract
@@ -28,6 +29,8 @@ description: Workflow for short Thai health and medical explainer clips (about 1
 - ภาพการ์ตูนต้องเป็นตัวละครต้นฉบับ ห้ามเลียน Snoopy/Peanuts หรือตัวละครมีลิขสิทธิ์
 
 **รูปแบบสำเร็จรูป "Myth-Busting" 120 วินาที** (ความเชื่อผิด → คนไข้ถามหมอตอบ → กลไก → การ์ดหลักฐาน 3 ใบ → Fact Card → CTA → โลโก้): อ่าน `references/format-myth-busting-120s.md` ก่อนเขียนบทขั้น 3 เมื่อผู้ใช้ขอรูปแบบนี้ หรือไม่ได้ระบุรูปแบบ (ให้ถามว่าจะใช้หรือไม่) ตัวอย่างและตัวเลขในไฟล์นั้นยังไม่ผ่านการตรวจ PubMed ห้ามนำไปใช้เป็นข้อเท็จจริง
+
+ขั้น 8 อ่าน `references/post-package.md` ก่อนทำ (ใช้ได้โดยไม่ต้องมีเสียงหรือวิดีโอ ขอแค่มีตารางหลักฐานที่ยืนยันแล้ว)
 
 ขั้น 7 อ่าน `references/video-pipeline.md` ก่อนรัน และเลือกสัดส่วนได้: `16:9` (1920×1080 ค่าเริ่มต้น), `9:16` (1080×1920), `1:1` (1080×1080), `4:5` (1080×1350) หลายสัดส่วนในคำสั่งเดียวได้
 
@@ -102,6 +105,10 @@ uv run --with "google-genai>=2.25" python "$TTS" \
 4. ตรวจตามหัวข้อ "ตรวจก่อนส่งมอบ": ตัวเลข ffprobe, `check.py`, เปิด contact sheet ทุกสัดส่วน และบอกผู้ใช้ตรง ๆ ว่าผมฟังเสียง/เพลงไม่ได้
 
 ต้องมี `ffmpeg-skill` ติดตั้งอยู่ (สคริปต์หาให้เอง หรือ `FFMPEG_SKILL_DIR`) ถ้าไม่มีให้บอกผู้ใช้แล้วหยุด ห้ามเรียก ffmpeg ดิบแทน
+
+## ขั้นที่ 8 — Carousel + แคปชัน (สรุป)
+
+รายละเอียด แม่แบบแคปชัน และกฎอยู่ใน `references/post-package.md` ย่อ ๆ: เขียน `carousel.json` จาก Fact Card/REFERENCE MAP ของขั้น 3 แล้วรัน `make_video.py carousel carousel.json --out out/ --name clip --aspect 4:5` ได้ PNG 2 ไฟล์ (ข้อความไทยผ่าน ASS เหมือนวิดีโอ) เปิดดูภาพก่อนส่งมอบเสมอ จากนั้นเขียนแคปชันตามแม่แบบ: อ้างเฉพาะงานที่เปิดอ่านได้จริงในขั้น 2 (ผู้แต่ง วารสาร ปี PMID), งานเชิงสังเกตใช้คำว่า "สัมพันธ์กับ" และมีหมายเหตุ, จบด้วยประโยคปฏิเสธความรับผิดชอบ และบอกผู้ใช้ว่าปรับคำอะไรเพื่อความถูกต้อง
 
 ## โหมดทีม subagent (แบบ hearyourvoice)
 
